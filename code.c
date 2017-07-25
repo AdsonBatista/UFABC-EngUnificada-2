@@ -1,7 +1,8 @@
 //Bluetooth
 //0 tempo limpo
 //1 tempo sujo
-# define BT_CONN 0
+#
+define BT_CONN 0
 // st variavel de esta do do BT
 # define st 0
 // Out_A motor desce e sobe a pá
@@ -55,7 +56,12 @@ sub BTCheck(int conn) {
 
     task main() {
         SetSensor(IN_1, SENSOR_TOUCH);
-
+// estado inicial é esse
+        desce_pa();
+            //ligo a pá com 100% do motor
+            OnFwd(OUT_B, 100);
+            //ligo a esteira com 10% do motor
+            OnFwd(OUT_C, 10);
         //*****************************************************************
         //botao de panico
         do {
@@ -66,8 +72,20 @@ sub BTCheck(int conn) {
             OnFwd(OUT_B, 100);
             //ligo a esteira com 10% do motor
             OnFwd(OUT_C, 10);
-
-            statements;
+            while (st == 0) {
+              temchuva();
+            }
+              if(st==1){
+                  // paro as pa
+                  stop(OUT_B);
+                  // subo
+                  sobe_pa();
+                  // espero
+                  Wait(5000);
+                  // paro esteira
+                  stop(OUT_B);
+                  
+              }
           }
           while (SENSOR_TOUCH == 1);
 
