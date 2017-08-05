@@ -1,3 +1,20 @@
+// Primeiro ela inicia o processo
+	Liga BT
+	Conecta o BT
+	recebe sinal da mensagem
+	Liga motor pá para descer {}
+	Liga motor esteira {}
+	Liga motor pá para rotacionar {}
+	Monitora S_T
+	if(S_T=1){
+		// contato no sensor de toque
+		Emite aviso
+		Desligo motor rotacionamento da pá{}
+		Liga motor - pá subir {}
+		Tempo de espera {} //lixo da esteira subir
+		Desligo motor da esteira {}
+		}
+
 // Panico - Para todo sistema se 0 sistema funciona se 1 sistema desliga
 
 if(panico=0){
