@@ -1,57 +1,62 @@
-// Panico
-if(x=0){  
-	// Bluetooth b=0 -> Tempo limpo b=1 -> tempo ruim
-	While(b=0){
-	Funciona 
-		if(tempo anterior de b=1){
-			b=0
-			//inicialização
-			if(y=0){
-				liga motor pá para descer {}
-				liga motor esteira {}
-				liga motor pá para rotacionar {}
-				liga TEMPO 
-				// tempo = contador de tempo
-				// liga caçamba
-				if(TEMPO ligado*){
-					if(distancia > 3/4){
-						funciona
-					} else if (distancia > 2/4){
-						Emite aviso
-					}else if (distancia < 1/4){
-						// para esvaziar
-						if(y=1){
-							desligo motor rotacionamento da pá{}
-							liga motor pá subir {}
-							Tempo de espera {} //lixo da esteira subir
-							desligo motor da esteira {}
-							desliga contador de TEMPO de funcionamento
-						}
-					}
-				}				
-			}
+// Panico - Para todo sistema se 0 sistema funciona se 1 sistema desliga
 
+if(panico=0){
+	//Panico ==0 - Sistema funciona normal
+	//verifica estado do BT (ou do texto) de x em x tempo // b=0 -> Tempo limpo b=1 -> tipo esse ocorre sempre independente do resto.
+	if(b=0){
+		// B=0 => Tempo bom
+		// Se tempo bom ele pode fazer duas coisa dependendo do estado anterior
+		// se Sai de tempo ruim para tempo bom) B_1=1 então ela liga.
+		// se tempo anteior(B_1) é bom então ela continua funcionando em regime permanente	
+		if(B_1=0){
+			//funciona em regime permanente - mantem tudo funcionando
+			// pá baixa
+			// motor da pá ligado
+			// motor da esteira ligada
+			// monitorando sensor de toque
 		}else{
-			pleno - Tudo funciona como estava
-			TEMPO Ligado
+			//B_1=1 -> execulta procedimento para ligar
+			monitora sensor de toque na caçamba (S_T)
+			//se sensor de toque S_T=0 - sem contato
+			if(S_T=0){
+			Liga motor pá para descer {}
+			Liga motor esteira {}
+			Liga motor pá para rotacionar {}
+			Monitora S_T
+			if(S_T=1){
+				// contato no sensor de toque
+				Emite aviso
+				Desligo motor rotacionamento da pá{}
+				Liga motor - pá subir {}
+				Tempo de espera {} //lixo da esteira subir
+				Desligo motor da esteira {}
+				}
+			}
 		}
 	}else{
-		if(y=1){
-			desligo motor rotacionamento da pá{}
-			liga motor pá subir {}
+		// B=1 => tempo ruim
+		// Se tempo ruim ele pode fazer duas coisa dependendo do estado anterior
+		// se Sai de tempo bom para tempo ruim) B_1=0 então ela delisga.
+		// se tempo anteior(B_1) é ruim então ela continua parada
+		if(B_1=0){
+			//B_1=0 -> execulta procedimento para desligar
+			Desligo motor rotacionamento da pá{}
+			Liga motor pá subir {}
 			Tempo de espera {}
-			desligo motor da esteira {}
-			desliga contador de tempo de funcionamento
-		}
-
+			Desligo motor da esteira {}
+			Monitora S_T
+			if (S_T=1) {
+				Emite aviso
+			}
+		}else{
+			não faz nada (continua desligada lendo o BT ou o texto)
+		}	
 	}
 }else{
-	if(y=1){
+	// Panico==1 - Sistema para de funcionar
+	// Condição botão de pânico só irá funcionar se o sistema estiver em funcionamento pleno.
 	desligo motor rotacionamento da pá{}
 	liga motor pá subir {}
 	Tempo de espera {}
 	desligo motor da esteira {}
-	desliga contador de tempo de funcionamento
-	}
-
 }
