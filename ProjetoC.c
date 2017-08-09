@@ -40,6 +40,12 @@
 
             do {// Se sensor 2 não apertado faça...
               TextOut(15, LCD_LINE1, "livre", true);
+             // luminosidade 
+             NumOut(15, LCD_LINE3, SENSOR_3,true);
+             // cacamba
+              NumOut(15, LCD_LINE5, SENSOR_2,true);
+             //panico 
+             NumOut(15, LCD_LINE7, SENSOR_1,true); 
               Wait(3000);
 
               do { // sol/chuva - Se sensor 3...
