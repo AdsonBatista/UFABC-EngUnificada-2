@@ -34,11 +34,11 @@
           SetSensor(IN_2, SENSOR_TOUCH); // define sensor entrada 2 como sensor de toque {coletor de lixo}
           SetSensorLight(S3); // uma apostila seta assim
 
-          do { // Se sensor 1 não apertado faça...
+          do { // Se sensor 1 (botão de pânico) não apertado faça...
             TextOut(15, LCD_LINE1, "OK", true);   //TextOut (int x, int y, string str,options)
             Wait(3000); // Espera 3s antes de fazer qualquer coisa
 
-            do {// Se sensor 2 não apertado faça...
+            do {// Se sensor 2 (sensor de lixo) não apertado faça...
               TextOut(15, LCD_LINE1, "livre", true);
              // luminosidade 
              NumOut(15, LCD_LINE3, SENSOR_3,true);
@@ -54,28 +54,22 @@
                 ligar();                  // Executa subrotina ligar
               } while (SENSOR_3 > 40);    // Condição de saida do "do"
                   // é necessario esse if? acho que não testar sem.
-              if (SENSOR_3 > 40) { // saio do "do" "sol/chuva" e verifico isso
-                {
                   TextOut(15, LCD_LINE1, "Chuva", true);
                   Wait(800);              // Espera 1s
                   desligar();             // Executa subrotina ligar
-                }
-              }
+             
           } while (SENSOR_2 != 0);                  //Saida do do "Livre/Cheio"
-              // é necessario esse if? acho que não testar sem.
-              if (SENSOR_2 != 0) {                    // saio do "do" "livre/Cheio" e verifico isso
+                // Saio do "do" "livre/Cheio" e faço isso
                 TextOut(15, LCD_LINE1, "Cheio", true); // Aviso que está cheio
                 desligar();                            // executo a rotina desligar
                 Wait(5000);                            // espero 3s
-              }
-            }while (SENSOR_1 == 1);   
-                            // Saida deo sensor Panico
-            if (SENSOR_1 == 1) {                      // Saio do "do" "sensor panico" e verifico
-              //se panico apertodo ele para tudo
+            
+            }while (SENSOR_1 == 1);  // Saida do "do" Panico
+              // Quando saio do "do" apertodo ele para tudo
               Off(OUT_ABC);
-              //TextOut (int x, int y, string str,options)
+              // TextOut (int x, int y, string str,options)
               TextOut(15, LCD_LINE1, "Panico", true);
-              Wait(5000);
-            }
+              Wait(25000); // Espera 15s antes de desligar tudo
+            
           }
       
